@@ -1,13 +1,17 @@
 #pragma once
 
-#include "WindowsPlatformUtils.h"
+#include "Windows/WindowsPlatformUtils.h"
 
+bool FWindowsPlatformUtils::HasInternetConnected()
+{
+	return true;
+}
 FString FWindowsPlatformUtils::GetPersistentUniqueDeviceId()
 {
-	return TEXT("");
+	return FWindowsPlatformUtils::GetDeviceId();
 }
 
 FString FWindowsPlatformUtils::GetDeviceId()
 {
-	return TEXT("");
+	return FGenericPlatformMisc::GetDeviceId();
 }

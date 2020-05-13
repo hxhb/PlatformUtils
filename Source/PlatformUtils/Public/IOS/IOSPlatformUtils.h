@@ -6,7 +6,14 @@
 struct PLATFORMUTILS_API FIOSPlatformUtils:public FGenericPlatformUtils
 {
 public:
-	
+	static void Init();
+	static void Shutdown();
+	/**
+	* Return device network connected status
+	*
+	* @return - has network?
+	*/
+	static bool HasInternetConnected();
 	/**
 	* Return persistent Unique Device ID without reset after app reinstall
 	*

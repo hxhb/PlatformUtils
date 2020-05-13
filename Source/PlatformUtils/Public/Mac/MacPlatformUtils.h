@@ -6,7 +6,8 @@
 struct PLATFORMUTILS_API FMacPlatformUtils:public FGenericPlatformUtils
 {
 public:
-	
+	static void Init() {}
+	static void Shutdown() {}
 	/**
 	* Return persistent Unique Device ID without reset after app reinstall
 	*

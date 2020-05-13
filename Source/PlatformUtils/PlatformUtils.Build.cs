@@ -1,6 +1,7 @@
 // Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
 
 using UnrealBuildTool;
+using System.IO;
 
 public class PlatformUtils : ModuleRules
 {
@@ -25,7 +26,7 @@ public class PlatformUtils : ModuleRules
 		PublicDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"Core",
+				"Core"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -36,8 +37,6 @@ public class PlatformUtils : ModuleRules
 			{
 				"CoreUObject",
 				"Engine",
-				"Slate",
-				"SlateCore",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
@@ -49,5 +48,16 @@ public class PlatformUtils : ModuleRules
 				// ... add any modules that your module loads dynamically here ...
 			}
 			);
+
+
+		if(Target.Platform == UnrealTargetPlatform.IOS)
+        {
+
+        }
+
+        if(Target.Platform == UnrealTargetPlatform.Android)
+        {
+        	AdditionalPropertiesForReceipt.Add(new ReceiptProperty("AndroidManifestEx", Path.Combine(ModuleDirectory, "Android/AndroidManifestEx.xml")));
+        }
 	}
 }

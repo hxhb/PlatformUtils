@@ -8,6 +8,6 @@
 #include "IOS/IOSPlatformUtils.h"
 #elif PLATFORM_WINDOWS
 #include "Windows/WindowsPlatformUtils.h"
-#elif PLATYFORM_MAC
+#elif PLATFORM_MAC
 #include "Mac/MacPlatformUtils.h"
 #endif

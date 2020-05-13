@@ -6,7 +6,11 @@
 struct PLATFORMUTILS_API FWindowsPlatformUtils:public FGenericPlatformUtils
 {
 public:
-	
+	static void Init() {}
+	static void Shutdown() {}
+
+	static bool HasInternetConnected();
+
 	/**
 	* Return persistent Unique Device ID without reset after app reinstall
 	*

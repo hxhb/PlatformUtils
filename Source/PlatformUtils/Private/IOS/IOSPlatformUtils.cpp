@@ -1,7 +1,20 @@
 #pragma once
 
-#include "IOSPlatformUtils.h"
+#include "IOS/IOSPlatformUtils.h"
 
+
+void FIOSPlatformUtils::Init()
+{
+
+}
+void FIOSPlatformUtils::Shutdown()
+{
+
+}
+bool FIOSPlatformUtils::HasNetworkConnected()
+{
+	return true;
+}
 
 FString FIOSPlatformUtils::GetPersistentUniqueDeviceId()
 {

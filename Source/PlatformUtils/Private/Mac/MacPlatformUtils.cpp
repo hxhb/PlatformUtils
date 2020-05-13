@@ -1,14 +1,18 @@
 #pragma once
 
-#include "MacPlatformUtils.h"
+#include "Mac/MacPlatformUtils.h"
 
 
+bool FMacPlatformUtils::HasNetworkConnected()
+{
+	return true;
+}
 FString FMacPlatformUtils::GetPersistentUniqueDeviceId()
 {
-	return TEXT("");
+	return FGenericPlatformMisc::GetUniqueDeviceId();
 }
 
 FString FMacPlatformUtils::GetDeviceId()
 {
-	return TEXT("");
+	return FGenericPlatformMisc::GetDeviceId();
 }
