@@ -11,12 +11,12 @@ public:
 	*
 	* @return - Unique Device ID
 	*/
-	virtual FString GetPersistentUniqueDeviceId()=0;
+	static FString GetPersistentUniqueDeviceId(){ return TEXT(""); }
 
 	/**
 	* Return Device ID. Should be unique but not guaranteed.
 	*
 	* @return - Device ID
 	*/
-	virtual FString GetDeviceId()=0;
+	static FString GetDeviceId() { return TEXT(""); }
 };

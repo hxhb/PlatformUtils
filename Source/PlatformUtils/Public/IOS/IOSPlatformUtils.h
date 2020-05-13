@@ -12,14 +12,14 @@ public:
 	*
 	* @return - Unique Device ID
 	*/
-	virtual FString GetPersistentUniqueDeviceId()override;
+	static FString GetPersistentUniqueDeviceId();
 
 	/**
 	* Return Device ID. Should be unique but not guaranteed.
 	*
 	* @return - Device ID
 	*/
-	virtual FString GetDeviceId()override;
+	static FString GetDeviceId();
 };
 
 typedef FIOSPlatformUtils FPlatformUtilsMisc;
