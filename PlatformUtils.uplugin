@@ -14,10 +14,10 @@
 	"IsBetaVersion": false,
 	"Installed": false,
 	"Modules": [
-		{
-			"Name": "PlatformUtils",
-			"Type": "Runtime",
-			"LoadingPhase": "Default"
-		}
+    {
+      "Name": "PlatformUtils",
+      "Type": "Runtime",
+      "LoadingPhase": "PostConfigInit"
+    }
 	]
 }

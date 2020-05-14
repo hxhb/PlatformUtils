@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "HAL/PlatformApplicationMisc.h"
 
 struct PLATFORMUTILS_API FGenericPlatformUtils
 {

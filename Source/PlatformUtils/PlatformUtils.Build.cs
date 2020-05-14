@@ -11,8 +11,8 @@ public class PlatformUtils : ModuleRules
 		
 		PublicIncludePaths.AddRange(
 			new string[] {
-				// ... add public include paths required here ...
-			}
+               // ... add public include paths required here ...
+            }
 			);
 				
 		
@@ -26,7 +26,10 @@ public class PlatformUtils : ModuleRules
 		PublicDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"Core"
+                "CoreUObject",
+                "Core",
+                "Engine",
+                "ApplicationCore"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -35,8 +38,8 @@ public class PlatformUtils : ModuleRules
 		PrivateDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"CoreUObject",
-				"Engine",
+				
+				
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
@@ -49,15 +52,41 @@ public class PlatformUtils : ModuleRules
 			}
 			);
 
+        string ThirdPartyPath = Path.Combine(ModuleDirectory, "ThirdParty");
 
 		if(Target.Platform == UnrealTargetPlatform.IOS)
         {
+            PublicAdditionalFrameworks.Add(
+                    new Framework(
+                        "Reachability",
+                        "ThirdParty/IOS/Reachability.embeddedframework.zip"
+                    )
+                );
 
+            PublicAdditionalFrameworks.Add(
+                new Framework(
+                    "SAMKeychain",
+                    "ThirdParty/IOS/SAMKeychain.embeddedframework.zip",
+                    "SAMKeychain.framework/SAMKeychain.bundle"
+                )
+            );
+
+            PublicFrameworks.AddRange(
+                new string[]
+                {
+                        "SystemConfiguration",
+                        "Security"
+                }
+            );
+
+            PublicAdditionalLibraries.Add("z");
+            PublicAdditionalLibraries.Add("sqlite3");
         }
 
         if(Target.Platform == UnrealTargetPlatform.Android)
         {
-        	AdditionalPropertiesForReceipt.Add(new ReceiptProperty("AndroidManifestEx", Path.Combine(ModuleDirectory, "Android/AndroidManifestEx.xml")));
+            PrivateDependencyModuleNames.AddRange(new string[] { "Launch" });
+            AdditionalPropertiesForReceipt.Add(new ReceiptProperty("AndroidPlugin", Path.Combine(ThirdPartyPath, "Android/PlatformUtils_UPL_Android.xml")));
         }
 	}
 }

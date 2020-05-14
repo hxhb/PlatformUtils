@@ -1,21 +1,26 @@
 #pragma once
 
+
 #include "Android/AndroidPlatformUtils.h"
+
+// engine header
 #include "Kismet/KismetSystemLibrary.h"
 
 jmethodID FAndroidPlatformUtils::HasInternetConnectedMethod;
-jmethodID FAndroidPlatformUtils::CheckGooglePlayServicesMethod;
-jmethodID FAndroidPlatformUtils::GetPersistentUniqueDeviceIdMethod;
 jmethodID FAndroidPlatformUtils::GetDeviceIdMethod;
+jmethodID FAndroidPlatformUtils::GetAndroidDeviceIdMethod;
+jmethodID FAndroidPlatformUtils::GetMacAddressMethod;
+jmethodID FAndroidPlatformUtils::GetFakeDeviceIDMethod;
 
 void FAndroidPlatformUtils::Init()
 {
 	if (JNIEnv* Env = FAndroidApplication::GetJavaEnv())
 	{
 		HasInternetConnectedMethod = FJavaWrapper::FindMethod(Env, FJavaWrapper::GameActivityClassID, "AndroidThunkJava_HasInternetConnected", "()Z", false);
-		CheckGooglePlayServicesMethod = FJavaWrapper::FindMethod(Env, FJavaWrapper::GameActivityClassID, "AndroidThunkJava_CheckGooglePlayServices", "()Z", false);
-		GetPersistentUniqueDeviceIdMethod = FJavaWrapper::FindMethod(Env, FJavaWrapper::GameActivityClassID, "AndroidThunkJava_GetPersistentUniqueDeviceId", "()Ljava/lang/String;", false);
 		GetDeviceIdMethod = FJavaWrapper::FindMethod(Env, FJavaWrapper::GameActivityClassID, "AndroidThunkJava_GetDeviceId", "()Ljava/lang/String;", false);
+		GetAndroidDeviceIdMethod = FJavaWrapper::FindMethod(Env, FJavaWrapper::GameActivityClassID, "AndroidThunkJava_GetAndroidDeviceId", "()Ljava/lang/String;", false);
+		GetMacAddressMethod = FJavaWrapper::FindMethod(Env, FJavaWrapper::GameActivityClassID, "AndroidThunkJava_GetMacAddress", "()Ljava/lang/String;", false);
+		GetFakeDeviceIDMethod = FJavaWrapper::FindMethod(Env, FJavaWrapper::GameActivityClassID, "AndroidThunkJava_GetFakeDeviceID", "()Ljava/lang/String;", false);
 	}
 }
 void FAndroidPlatformUtils::Shutdown()
@@ -23,7 +28,7 @@ void FAndroidPlatformUtils::Shutdown()
 
 }
 
-bool FAndroidPlatformUtils::HasNetworkConnected()
+bool FAndroidPlatformUtils::HasInternetConnected()
 {
 	bool bResult = false;
 	if (JNIEnv* Env = FAndroidApplication::GetJavaEnv())
@@ -34,16 +39,7 @@ bool FAndroidPlatformUtils::HasNetworkConnected()
 }
 FString FAndroidPlatformUtils::GetPersistentUniqueDeviceId()
 {
-	FString ResultDeviceId = FString("");
-	if (JNIEnv* Env = FAndroidApplication::GetJavaEnv())
-	{
-		jstring ResultDeviceIdString = (jstring)FJavaWrapper::CallObjectMethod(Env, FJavaWrapper::GameActivityThis, FAndroidPlatformUtils::GetPersistentUniqueDeviceIdMethod);
-		const char *nativeDeviceIdString = Env->GetStringUTFChars(ResultDeviceIdString, 0);
-		ResultDeviceId = FString(nativeDeviceIdString);
-		Env->ReleaseStringUTFChars(ResultDeviceIdString, nativeDeviceIdString);
-		Env->DeleteLocalRef(ResultDeviceIdString);
-	}
-	return ResultDeviceId;
+	return FPlatformUtilsMisc::GetDeviceId();
 }
 
 FString FAndroidPlatformUtils::GetDeviceId()
@@ -51,11 +47,7 @@ FString FAndroidPlatformUtils::GetDeviceId()
 	FString ResultDeviceId = FString("");
 	if (JNIEnv* Env = FAndroidApplication::GetJavaEnv())
 	{
-		jstring ResultDeviceIdString = (jstring)FJavaWrapper::CallObjectMethod(Env, FJavaWrapper::GameActivityThis, FAndroidPlatformUtils::GetDeviceIdMethod);
-		const char *nativeDeviceIdString = Env->GetStringUTFChars(ResultDeviceIdString, 0);
-		ResultDeviceId = FString(nativeDeviceIdString);
-		Env->ReleaseStringUTFChars(ResultDeviceIdString, nativeDeviceIdString);
-		Env->DeleteLocalRef(ResultDeviceIdString);
+		ResultDeviceId = FJavaHelper::FStringFromLocalRef(Env, (jstring)FJavaWrapper::CallObjectMethod(Env, FJavaWrapper::GameActivityThis, FAndroidPlatformUtils::GetDeviceIdMethod));
 	}
 	return ResultDeviceId;
 }

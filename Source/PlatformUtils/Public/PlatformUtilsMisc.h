@@ -3,7 +3,7 @@
 #include "HAL/Platform.h"
 
 #if PLATFORM_ANDROID
-#include "Andorid/AndroidPlatformUtils.h"
+#include "Android/AndroidPlatformUtils.h"
 #elif PLATFORM_IOS
 #include "IOS/IOSPlatformUtils.h"
 #elif PLATFORM_WINDOWS

@@ -3,10 +3,11 @@
 #include "Mac/MacPlatformUtils.h"
 
 
-bool FMacPlatformUtils::HasNetworkConnected()
+bool FMacPlatformUtils::HasInternetConnected()
 {
 	return true;
 }
+
 FString FMacPlatformUtils::GetPersistentUniqueDeviceId()
 {
 	return FGenericPlatformMisc::GetUniqueDeviceId();
