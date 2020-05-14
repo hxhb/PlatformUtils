@@ -65,9 +65,9 @@ public class PlatformUtils : ModuleRules
 
             PublicAdditionalFrameworks.Add(
                 new Framework(
-                    "SAMKeychain",
-                    "ThirdParty/IOS/SAMKeychain.embeddedframework.zip",
-                    "SAMKeychain.framework/SAMKeychain.bundle"
+                    "SSKeychain",
+                    "ThirdParty/IOS/SSKeychain.embeddedframework.zip",
+                    "SSKeychain.framework/SSKeychain.bundle"
                 )
             );
 
