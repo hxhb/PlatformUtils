@@ -33,7 +33,21 @@ FString FIOSPlatformUtils::GetPersistentUniqueDeviceId()
 		[SSKeychain setPassword : PersistentUUID forService : AppName account : @"incoding"];
 	}
 
-	return FString(PersistentUUID);
+	FString resultId(PersistentUUID);
+
+	while (true)
+	{
+		int32 foundPos=-1;
+		if (resultId.FindChar('-', foundPos))
+		{
+			resultId.RemoveAt(foundPos);
+		}
+		else
+		{
+			break;
+		}
+	}
+	return resultId;
 }
 
 FString FIOSPlatformUtils::GetDeviceId()
