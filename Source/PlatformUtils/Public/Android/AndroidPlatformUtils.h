@@ -19,7 +19,7 @@ public:
 	*
 	* @return - has network?
 	*/
-	static bool HasInternetConnected();
+	static bool HasInternetConnection();
 
 	/**
 	* Return persistent Unique Device ID without reset after app reinstall
@@ -36,7 +36,7 @@ public:
 	static FString GetDeviceId();
 
 	// JNI Methods
-	static jmethodID HasInternetConnectedMethod;
+	static jmethodID HasInternetConnectionMethod;
 	static jmethodID GetDeviceIdMethod;
 	static jmethodID GetAndroidDeviceIdMethod;
 	static jmethodID GetMacAddressMethod;

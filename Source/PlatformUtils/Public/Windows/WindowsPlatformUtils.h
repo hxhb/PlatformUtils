@@ -9,7 +9,7 @@ public:
 	static void Init() {}
 	static void Shutdown() {}
 
-	static bool HasInternetConnected();
+	static bool HasInternetConnection();
 
 	/**
 	* Return persistent Unique Device ID without reset after app reinstall

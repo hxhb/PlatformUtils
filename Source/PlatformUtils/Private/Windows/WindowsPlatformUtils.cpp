@@ -2,7 +2,7 @@
 
 #include "Windows/WindowsPlatformUtils.h"
 
-bool FWindowsPlatformUtils::HasInternetConnected()
+bool FWindowsPlatformUtils::HasInternetConnection()
 {
 	return true;
 }

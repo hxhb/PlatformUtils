@@ -13,7 +13,7 @@ public:
 	*
 	* @return - has network?
 	*/
-	static bool HasInternetConnected() { return true; };
+	static bool HasInternetConnection() { return true; };
 	/**
 	* Return persistent Unique Device ID without reset after app reinstall
 	*

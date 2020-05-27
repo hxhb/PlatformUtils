@@ -21,7 +21,7 @@ public:
 	* @return - has network?
 	*/
 	UFUNCTION(BlueprintPure, BlueprintCallable, Category="PlatformUtils")
-		static bool HasInternetConnected();
+		static bool HasInternetConnection();
 	/**
 	* Return persistent Unique Device ID without reset after app reinstall
 	*

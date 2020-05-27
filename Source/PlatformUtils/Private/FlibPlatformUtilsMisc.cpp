@@ -4,9 +4,9 @@
 #include "FlibPlatformUtilsMisc.h"
 #include "PlatformUtilsMisc.h"
 
-bool UFlibPlatformUtilsMisc::HasInternetConnected()
+bool UFlibPlatformUtilsMisc::HasInternetConnection()
 {
-	return FPlatformUtilsMisc::HasInternetConnected();
+	return FPlatformUtilsMisc::HasInternetConnection();
 }
 
 FString UFlibPlatformUtilsMisc::GetPersistentUniqueDeviceId()

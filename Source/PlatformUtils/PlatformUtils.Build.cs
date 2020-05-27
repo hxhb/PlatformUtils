@@ -66,8 +66,8 @@ public class PlatformUtils : ModuleRules
             PublicAdditionalFrameworks.Add(
                 new Framework(
                     "SSKeychain",
-                    "ThirdParty/IOS/SSKeychain.embeddedframework.zip",
-                    "SSKeychain.framework/SSKeychain.bundle"
+                    "ThirdParty/IOS/SSKeychain.embeddedframework.zip"// ,
+                    // "SSKeychain.framework/SSKeychain.bundle"
                 )
             );
 
