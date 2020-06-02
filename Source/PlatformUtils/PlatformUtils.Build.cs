@@ -86,6 +86,7 @@ public class PlatformUtils : ModuleRules
         if(Target.Platform == UnrealTargetPlatform.Android)
         {
             PrivateDependencyModuleNames.AddRange(new string[] { "Launch" });
+            PublicDefinitions.Add("USE_ANDROID_JNI=1");
             AdditionalPropertiesForReceipt.Add(new ReceiptProperty("AndroidPlugin", Path.Combine(ThirdPartyPath, "Android/PlatformUtils_UPL_Android.xml")));
         }
 	}
