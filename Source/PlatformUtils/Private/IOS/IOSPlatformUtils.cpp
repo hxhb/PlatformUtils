@@ -14,7 +14,7 @@ void FIOSPlatformUtils::Shutdown()
 
 }
 
-bool FIOSPlatformUtils::HasInternetConnected()
+bool FIOSPlatformUtils::HasInternetConnection()
 {
 	Reachability *reachability = [Reachability reachabilityForInternetConnection];
 	NetworkStatus networkStatus = [reachability currentReachabilityStatus];
