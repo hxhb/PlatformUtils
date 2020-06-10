@@ -52,21 +52,23 @@ public class PlatformUtils : ModuleRules
 			}
 			);
 
-        string ThirdPartyPath = Path.Combine(ModuleDirectory, "ThirdParty");
+        string ThirdPartyPath = Path.Combine(ModuleDirectory, "../ThirdParty");
 
 		if(Target.Platform == UnrealTargetPlatform.IOS)
         {
             PublicAdditionalFrameworks.Add(
                     new Framework(
                         "Reachability",
-                        "ThirdParty/IOS/Reachability.embeddedframework.zip"
+                        Path.Combine(ThirdPartyPath, "IOS/Reachability.embeddedframework.zip")
+                        // "ThirdParty/IOS/Reachability.embeddedframework.zip"
                     )
                 );
 
             PublicAdditionalFrameworks.Add(
                 new Framework(
                     "SSKeychain",
-                    "ThirdParty/IOS/SSKeychain.embeddedframework.zip",
+                    Path.Combine(ThirdPartyPath, "IOS/SSKeychain.embeddedframework.zip"),
+//                     "ThirdParty/IOS/SSKeychain.embeddedframework.zip",
                     "SSKeychain.framework/SSKeychain.bundle"
                 )
             );
