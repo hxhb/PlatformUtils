@@ -14,10 +14,15 @@
 	"IsBetaVersion": false,
 	"Installed": false,
 	"Modules": [
-    {
-      "Name": "PlatformUtils",
-      "Type": "Runtime",
-      "LoadingPhase": "PostConfigInit"
-    }
+	    {
+	      "Name": "PlatformUtils",
+	      "Type": "Runtime",
+	      "LoadingPhase": "PostConfigInit"
+	    },
+	    {
+	      "Name": "CS_OpenSSL",
+	      "Type": "Runtime",
+	      "LoadingPhase": "Default"
+	    }
 	]
 }

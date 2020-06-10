@@ -2,7 +2,9 @@
 
 
 #include "Android/AndroidPlatformUtils.h"
-
+#include "Android/AndroidPlatform.h"
+#include "Android/AndroidJNI.h"
+#include "Android/AndroidJavaEnv.h"
 // engine header
 #include "Kismet/KismetSystemLibrary.h"
 
@@ -47,7 +49,45 @@ FString FAndroidPlatformUtils::GetDeviceId()
 	FString ResultDeviceId = FString("");
 	if (JNIEnv* Env = FAndroidApplication::GetJavaEnv())
 	{
-		ResultDeviceId = FJavaHelper::FStringFromLocalRef(Env, (jstring)FJavaWrapper::CallObjectMethod(Env, FJavaWrapper::GameActivityThis, FAndroidPlatformUtils::GetDeviceIdMethod));
+		ResultDeviceId = FJavaHelperEx::FStringFromLocalRef(Env, (jstring)FJavaWrapper::CallObjectMethod(Env, FJavaWrapper::GameActivityThis, FAndroidPlatformUtils::GetDeviceIdMethod));
 	}
 	return ResultDeviceId;
+}
+
+
+FString FJavaHelperEx::FStringFromLocalRef(JNIEnv* Env, jstring JavaString)
+{
+	FString ReturnString = FStringFromParam(Env, JavaString);
+
+	if (Env && JavaString)
+	{
+		Env->DeleteLocalRef(JavaString);
+	}
+
+	return ReturnString;
+}
+
+FString FJavaHelperEx::FStringFromGlobalRef(JNIEnv* Env, jstring JavaString)
+{
+	FString ReturnString = FStringFromParam(Env, JavaString);
+
+	if (Env && JavaString)
+	{
+		Env->DeleteGlobalRef(JavaString);
+	}
+
+	return ReturnString;
+}
+
+FString FJavaHelperEx::FStringFromParam(JNIEnv* Env, jstring JavaString)
+{
+	if (!Env || !JavaString || Env->IsSameObject(JavaString, NULL))
+	{
+		return {};
+	}
+
+	const auto chars = Env->GetStringUTFChars(JavaString, 0);
+	FString ReturnString(UTF8_TO_TCHAR(chars));
+	Env->ReleaseStringUTFChars(JavaString, chars);
+	return ReturnString;
 }

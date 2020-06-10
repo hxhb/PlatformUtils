@@ -7,6 +7,18 @@
 #include "Android/AndroidApplication.h"
 #include "Android/AndroidJNI.h"
 
+class PLATFORMUTILS_API FJavaHelperEx
+{
+public:
+	// Converts the java string to FString and calls DeleteLocalRef on the passed-in java string reference
+	static FString FStringFromLocalRef(JNIEnv* Env, jstring JavaString);
+
+	// Converts the java string to FString and calls DeleteGlobalRef on the passed-in java string reference
+	static FString FStringFromGlobalRef(JNIEnv* Env, jstring JavaString);
+
+	// Converts the java string to FString, does NOT modify the passed-in java string reference
+	static FString FStringFromParam(JNIEnv* Env, jstring JavaString);
+};
 
 struct PLATFORMUTILS_API FAndroidPlatformUtils:public FGenericPlatformUtils
 {
