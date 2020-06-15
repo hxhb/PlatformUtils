@@ -35,7 +35,7 @@ bool FAndroidPlatformUtils::HasInternetConnection()
 	bool bResult = false;
 	if (JNIEnv* Env = FAndroidApplication::GetJavaEnv())
 	{
-		bResult = FJavaWrapper::CallBooleanMethod(Env, FJavaWrapper::GameActivityThis, FAndroidPlatformUtils::HasInternetConnectedMethod);
+		bResult = FJavaWrapper::CallBooleanMethod(Env, FJavaWrapper::GameActivityThis, FAndroidPlatformUtils::HasInternetConnectionMethod);
 	}
 	return bResult;
 }
