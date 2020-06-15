@@ -8,7 +8,7 @@
 // engine header
 #include "Kismet/KismetSystemLibrary.h"
 
-jmethodID FAndroidPlatformUtils::HasInternetConnectedMethod;
+jmethodID FAndroidPlatformUtils::HasInternetConnectionMethod;
 jmethodID FAndroidPlatformUtils::GetDeviceIdMethod;
 jmethodID FAndroidPlatformUtils::GetAndroidDeviceIdMethod;
 jmethodID FAndroidPlatformUtils::GetMacAddressMethod;
@@ -18,7 +18,7 @@ void FAndroidPlatformUtils::Init()
 {
 	if (JNIEnv* Env = FAndroidApplication::GetJavaEnv())
 	{
-		HasInternetConnectedMethod = FJavaWrapper::FindMethod(Env, FJavaWrapper::GameActivityClassID, "AndroidThunkJava_HasInternetConnected", "()Z", false);
+		HasInternetConnectionMethod = FJavaWrapper::FindMethod(Env, FJavaWrapper::GameActivityClassID, "AndroidThunkJava_HasInternetConnected", "()Z", false);
 		GetDeviceIdMethod = FJavaWrapper::FindMethod(Env, FJavaWrapper::GameActivityClassID, "AndroidThunkJava_GetDeviceId", "()Ljava/lang/String;", false);
 		GetAndroidDeviceIdMethod = FJavaWrapper::FindMethod(Env, FJavaWrapper::GameActivityClassID, "AndroidThunkJava_GetAndroidDeviceId", "()Ljava/lang/String;", false);
 		GetMacAddressMethod = FJavaWrapper::FindMethod(Env, FJavaWrapper::GameActivityClassID, "AndroidThunkJava_GetMacAddress", "()Ljava/lang/String;", false);
@@ -30,7 +30,7 @@ void FAndroidPlatformUtils::Shutdown()
 
 }
 
-bool FAndroidPlatformUtils::HasInternetConnected()
+bool FAndroidPlatformUtils::HasInternetConnection()
 {
 	bool bResult = false;
 	if (JNIEnv* Env = FAndroidApplication::GetJavaEnv())
