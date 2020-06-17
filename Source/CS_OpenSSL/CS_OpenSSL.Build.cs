@@ -33,7 +33,7 @@ public class CS_OpenSSL : ModuleRules
         string PlatformSubdir = Target.Platform.ToString();
         string ConfigFolder = (Target.Configuration == UnrealTargetConfiguration.Debug && Target.bDebugBuildsActuallyUseDebugCRT) ? "Debug" : "Release";
 
-        if (Target.Version.MinorVersion > 24 && (Target.Platform == UnrealTargetPlatform.Mac || Target.Platform == UnrealTargetPlatform.IOS))
+        if (Target.Version.MinorVersion >= 24 && (Target.Platform == UnrealTargetPlatform.Mac || Target.Platform == UnrealTargetPlatform.IOS))
         {
             PublicIncludePaths.Add(Path.Combine(OpenSSL111Path, "Include", PlatformSubdir));
 
