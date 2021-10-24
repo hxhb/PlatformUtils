@@ -2,65 +2,31 @@
 
 using UnrealBuildTool;
 using System.IO;
-using System;
 
-public class CS_OpenSSL : ModuleRules
+public class CSZ_OpenSSL : ModuleRules
 {
-    public CS_OpenSSL(ReadOnlyTargetRules Target) : base(Target)
+    public CSZ_OpenSSL(ReadOnlyTargetRules Target) : base(Target)
     {
-        PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
-
-        PublicDependencyModuleNames.AddRange(
-            new string[]
-            {
-                "CoreUObject",
-                "Core",
-                "Engine",
-                "ApplicationCore"
-				// ... add other public dependencies that you statically link with here ...
-			}
-            );
-
-        // Type = ModuleType.External;
+        Type = ModuleType.External;
 
         string OpenSSL101sPath = Path.Combine(Target.UEThirdPartySourceDirectory, "OpenSSL", "1_0_1s");
         string OpenSSL102hPath = Path.Combine(Target.UEThirdPartySourceDirectory, "OpenSSL", "1_0_2h");
         string OpenSSL102Path = Path.Combine(Target.UEThirdPartySourceDirectory, "OpenSSL", "1.0.2g");
         string OpenSSL111Path = Path.Combine(Target.UEThirdPartySourceDirectory, "OpenSSL", "1.1.1");
-        string OpenSSL111dPath = Path.Combine(Target.UEThirdPartySourceDirectory, "OpenSSL", "1.1.1c");
-
+        string OpenSSL111kPath = Path.Combine(Target.UEThirdPartySourceDirectory, "OpenSSL", "1.1.1k");
 
         string PlatformSubdir = Target.Platform.ToString();
         string ConfigFolder = (Target.Configuration == UnrealTargetConfiguration.Debug && Target.bDebugBuildsActuallyUseDebugCRT) ? "Debug" : "Release";
 
-        if (Target.Version.MinorVersion >= 24 && (Target.Platform == UnrealTargetPlatform.Mac || Target.Platform == UnrealTargetPlatform.IOS))
+        if (Target.Platform == UnrealTargetPlatform.Mac)
         {
-            PublicIncludePaths.Add(Path.Combine(OpenSSL111Path, "Include", PlatformSubdir));
+            PublicIncludePaths.Add(Path.Combine(OpenSSL111kPath, "include", PlatformSubdir));
 
-            string LibPath = Path.Combine(OpenSSL111Path, "Lib", PlatformSubdir);
-
-            PublicAdditionalLibraries.Add(Path.Combine(LibPath, "libssl.a"));
-            PublicAdditionalLibraries.Add(Path.Combine(LibPath, "libcrypto.a"));
-        }
-        else if (Target.Platform == UnrealTargetPlatform.Mac)
-        {
-            PublicIncludePaths.Add(Path.Combine(OpenSSL102Path, "include", PlatformSubdir));
-
-            string LibPath = Path.Combine(OpenSSL102Path, "lib", PlatformSubdir, ConfigFolder);
+            string LibPath = Path.Combine(OpenSSL111kPath, "lib", PlatformSubdir, ConfigFolder);
             //PublicLibraryPaths.Add(LibPath);
             PublicAdditionalLibraries.Add(Path.Combine(LibPath, "libssl.a"));
             PublicAdditionalLibraries.Add(Path.Combine(LibPath, "libcrypto.a"));
             PublicAdditionalLibraries.Add("z");
-        }
-        else if (Target.Platform == UnrealTargetPlatform.IOS)
-        {
-            string IncludePath = OpenSSL101sPath + "/include/IOS";
-            string LibraryPath = OpenSSL101sPath + "/lib/IOS";
-
-            PublicIncludePaths.Add(IncludePath);
-
-            PublicAdditionalLibraries.Add(LibraryPath + "/libssl.a");
-            PublicAdditionalLibraries.Add(LibraryPath + "/libcrypto.a");
         }
         else if (Target.Platform == UnrealTargetPlatform.PS4)
         {
@@ -75,39 +41,54 @@ public class CS_OpenSSL : ModuleRules
             // Our OpenSSL 1.1.1 libraries are built with zlib compression support
             PrivateDependencyModuleNames.Add("zlib");
 
-            string VSVersion = "VS" + Target.WindowsPlatform.GetVisualStudioCompilerVersionName();
-
+            // string VSVersion = "VS" + Target.WindowsPlatform.GetVisualStudioCompilerVersionName();
+            string VSVersion = "VS2015";
             // Add includes
-            PublicIncludePaths.Add(Path.Combine(OpenSSL111Path, "include", PlatformSubdir, VSVersion));
+            PublicIncludePaths.Add(Path.Combine(OpenSSL111kPath, "include", PlatformSubdir, VSVersion));
 
             // Add Libs
-            string LibPath = Path.Combine(OpenSSL111Path, "lib", PlatformSubdir, VSVersion, ConfigFolder);
+            string LibPath = Path.Combine(OpenSSL111kPath, "lib", PlatformSubdir, VSVersion, ConfigFolder);
+            PublicLibraryPaths.Add(LibPath);
 
             PublicAdditionalLibraries.Add(Path.Combine(LibPath, "libssl.lib"));
             PublicAdditionalLibraries.Add(Path.Combine(LibPath, "libcrypto.lib"));
-            // PublicSystemLibraries.Add("crypt32.lib");
+            PublicAdditionalLibraries.Add("crypt32.lib");
         }
         else if (Target.IsInPlatformGroup(UnrealPlatformGroup.Unix))
         {
             string platform = "/Linux/" + Target.Architecture;
-            string IncludePath = OpenSSL111dPath + "/include" + platform;
-            string LibraryPath = OpenSSL111dPath + "/lib" + platform;
+            string IncludePath = OpenSSL111kPath + "/include" + platform;
+            string LibraryPath = OpenSSL111kPath + "/lib" + platform;
 
             PublicIncludePaths.Add(IncludePath);
+            PublicLibraryPaths.Add(LibraryPath);
             PublicAdditionalLibraries.Add(LibraryPath + "/libssl.a");
             PublicAdditionalLibraries.Add(LibraryPath + "/libcrypto.a");
 
             PublicDependencyModuleNames.Add("zlib");
             //			PublicAdditionalLibraries.Add("z");
         }
-        else if (Target.Platform == UnrealTargetPlatform.Android || Target.Platform == UnrealTargetPlatform.Lumin)
+        else if (Target.Platform == UnrealTargetPlatform.Android)
         {
-            string IncludePath = OpenSSL101sPath + "/include/Android";
+            string IncludePath = OpenSSL111kPath + "/include/Android";
             PublicIncludePaths.Add(IncludePath);
 
             // unneeded since included in libcurl
-            // string LibPath = Path.Combine(OpenSSL101sPath, "lib", PlatformSubdir);
+            // string LibPath = Path.Combine(OpenSSL111kPath, "lib", PlatformSubdir);
             //PublicLibraryPaths.Add(LibPath);
         }
+        else if (Target.Platform == UnrealTargetPlatform.IOS)
+        {
+            string IncludePath = OpenSSL111kPath + "/include/IOS";
+            string LibraryPath = OpenSSL111kPath + "/lib/IOS";
+
+            PublicIncludePaths.Add(IncludePath);
+
+            PublicAdditionalLibraries.Add(LibraryPath + "/libssl.a");
+            PublicAdditionalLibraries.Add(LibraryPath + "/libcrypto.a");
+        }
+
+        PublicIncludePaths.Add(Path.Combine(ModuleDirectory,"Source"));
+
     }
 }

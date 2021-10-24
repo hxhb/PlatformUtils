@@ -18,11 +18,6 @@
 	      "Name": "PlatformUtils",
 	      "Type": "Runtime",
 	      "LoadingPhase": "PostConfigInit"
-	    },
-	    {
-	      "Name": "CS_OpenSSL",
-	      "Type": "Runtime",
-	      "LoadingPhase": "Default"
 	    }
 	]
 }
